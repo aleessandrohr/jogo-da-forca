@@ -33,7 +33,6 @@ while True:
     if perguntaLetraRepetida == 's':
         if letraChutada in palavraSelecionada:
             print('Letra certa.')
-            listaPalavras.remove()
             palavraFormando += letraChutada
             if palavraFormando == palavraSelecionada:
                 break

@@ -12,6 +12,7 @@ def menu():
         print('-' * 42)
         print('0 - Sair')
         print('1 - Iniciar')
+        print('2 - Informações')
         print('-' * 42)
         while True:
             perguntaMenu = int(input('O que deseja fazer? '))
@@ -28,12 +29,19 @@ def menu():
                 sleep(1.5)
                 iniciar()
                 break
+            elif perguntaMenu == 2:
+                print('-' * 42)
+                print('Iniciando...'.center(42))
+                print('-' * 42)
+                sleep(1.5)
+                info()
+                break
             print('Opção inválida. Tente novamente!')
         if perguntaMenu == 0:
             break
 
 def iniciar():
-    palavraSorteada = listaPalavras[randint(0, 7)]
+    palavraSorteada = listaPalavras[randint(0, len(listaPalavras)-1)]
     palavraFixa = []
     for palavra in (palavraSorteada):
         for letra in (palavra):
@@ -43,20 +51,35 @@ def iniciar():
     erros = 0
     while True:
         letras = ''
-        print()
+        print('-' * 42)
+        print('Info'.center(42))
+        print('-' * 42)
         print(f'A palavra sorteada tem {len(palavraSorteada)} letras.')
         if erros == 1:
             print(f'Você tem atualmente {erros} erro.')
         else:
             print(f'Voçê tem atualmente {erros} erros.')
+        print('Digite /desistir para desistir.')
+        print('Digite /letras para ver as letras repetidas.')
+        print('-' * 42)
         for letra in range (tamPalavraSorteada):
             letras += '_ '
-        img(erros, letras)
+        img(erros, letras, tamPalavraSorteada)
         while True:
-            palpite = str(input('Qual a letra? ')).lower()
+            palpite = str(input('Digite: ')).lower()
             if len(palpite) == 1:
                 break
-            print('Digite apenas uma letra!')
+            elif palpite == '/letras':
+                print(f'Letras repetidas: {letraRepetida}')
+            elif palpite == '/desistir':
+                print(f'Você escolheu desistir.')
+                print(f'A palavra era: {palavraSorteada}.')
+                break
+            else:
+                print('Digite apenas uma letra!')
+        print()
+        if palpite == '/desistir':
+            break
         perguntaLetraRepetida = 'y'
         if palpite in letraRepetida:
             print(f'Letra {palpite} repetido.')
@@ -65,14 +88,16 @@ def iniciar():
                 if perguntaLetraRepetida in 'YyNn':
                     break
                 print('Digite Y para sim e N para não.')
-        letraRepetida += palpite
+        if palpite not in letraRepetida:
+            letraRepetida += f'{palpite} '
         if perguntaLetraRepetida == 'y':
             if palpite in palavraFixa:
                 print(f'Letra {palpite} certa. Parabéns!')
+                print()
                 tamPalavraSorteada -= 1
                 palavraFixa.remove(palpite)
                 if len(palavraFixa) == 0:
-                    print('Parabéns')
+                    print(f'Parabéns você acertou! Palavra: {palavraSorteada}.')
                     break
             else:
                 print(f'Letra {palpite} errada. Ops!')
@@ -84,7 +109,11 @@ def iniciar():
             break
 
 
-def img(erros, letras):
+def info():
+    print(f'Em desenvolvimento.')
+
+
+def img(erros, letras, tam):
     if erros == 0:
         print(f''' 
    _ _ _ _  
@@ -93,7 +122,7 @@ def img(erros, letras):
 |
 |
 |
-|  Letras faltando: {letras}
+|  Letras faltando: {tam} {letras}
 |
  \ _ _ _ _
 
@@ -106,7 +135,7 @@ def img(erros, letras):
 |
 |
 |
-|  Letras faltando: {letras}
+|  Letras faltando: {tam} {letras}
 | 
  \ _ _ _ _
 ''')
@@ -118,7 +147,7 @@ def img(erros, letras):
 |        |   
 |   
 |
-|  Letras faltando: {letras}
+|  Letras faltando: {tam} {letras}
 |
  \ _ _ _ _
 ''')
@@ -130,7 +159,7 @@ def img(erros, letras):
 |        |   
 |   
 |
-|  Letras faltando: {letras}
+|  Letras faltando: {tam} {letras}
 |
  \ _ _ _ _
 ''')
@@ -142,8 +171,7 @@ def img(erros, letras):
 |        |   
 |   
 |
-|  Letras faltando {letras}
-|
+|  Letras faltando: {tam} {letras}
 | 
  \ _ _ _ _
 ''')
@@ -155,7 +183,7 @@ def img(erros, letras):
 |        |   
 |         \-  
 |
-|  Letras faltando: {letras}
+|  Letras faltando:  {tam} {letras}
 |
  \ _ _ _ _
 ''')
@@ -167,7 +195,7 @@ def img(erros, letras):
 |        |   
 |      -/ \-
 |
-|  Letras faltando: {letras}
+|  Letras faltando: {tam} {letras}
 |
  \ _ _ _ _
 ''')

@@ -12,7 +12,7 @@ Abra o cmd ou o powershell (dependendo do sistema operacional utilizado) na past
 ## Execute
 
 ```
-git clone https://github.com/alessandrohenriqueramos/jogo-da-forca.git
+git clone https://github.com/alessandroramos13/jogo-da-forca.git
 ```
 
 Logo depois execute o arquivo `main.py` dentro da pasta code.
